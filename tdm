@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+LOC=$(dirname "$0")
+
+j=$#;
+while [ $i -le $j ]
+do
+    IP=$($LOC/tdm.py $1)
+
+    if (( $? == 0 )); then
+      export THEOS_DEVICE_IP="${IP}"
+
+      make install
+
+    else
+      echo "Device ${1} not found"
+
+    fi
+
+    shift 1;
+done
